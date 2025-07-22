@@ -139,21 +139,6 @@ EduAid solves these problems by:
 
 ---
 
-## 🙌 Contributing
-
-We welcome contributors passionate about:
-- Blockchain for social impact  
-- Education access in underserved communities  
-- AI assistants in local languages  
-- Fraud-resistant systems  
-
-To contribute:
-1. Fork the repo  
-2. Setup the Motoko and React dev environments  
-3. Submit a PR with detailed description  
-
----
-
 ## 📬 Contact
 
 For partnership, collaboration, or sponsorship:
