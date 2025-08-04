@@ -1,0 +1,38 @@
+{
+  "canisters": {
+    "llm": {
+      "type": "pull",
+      "id": "w36hm-eqaaa-aaaal-qr76a-cai"
+    },
+    "user_profiles": {
+      "type": "motoko",
+      "main": "src/user_profiles/main.mo"
+    },
+    "rwa_registry": {
+      "type": "motoko",
+      "main": "src/rwa_registry/main.mo"
+    },
+    "donation_processor": {
+      "type": "motoko",
+      "main": "src/donation_processor/main.mo"
+    },
+    "frontend": {
+      "dependencies": [
+        "user_profiles",
+        "rwa_registry",
+        "donation_processor"
+      ],
+      "type": "assets",
+      "source": ["src/frontend/dist/"]
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": "mops sources"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1,
+  "dfx": "0.25.0"
+}
