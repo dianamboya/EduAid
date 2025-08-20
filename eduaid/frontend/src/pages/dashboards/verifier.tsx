@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // React Router
 import {
   ShieldCheck,
   GraduationCap,
@@ -9,10 +10,18 @@ import {
   LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export default function VerifierDashboard() {
   const [activeSection, setActiveSection] = useState("pending");
+  const navigate = useNavigate(); // Correct hook for React Router
+
+  const handleLogout = () => {
+    // Clear tokens/cookies if needed
+    // localStorage.removeItem("token");
+
+    navigate("/"); // Correct React Router navigation
+  };
 
   return (
     <div className="flex min-h-screen bg-blue-50 text-gray-900">
@@ -28,7 +37,8 @@ export default function VerifierDashboard() {
               }`}
               onClick={() => setActiveSection("pending")}
             >
-              <ShieldCheck className="w-5 h-5 mr-2" /> Pending Verifications
+              <ShieldCheck className="w-5 h-5 mr-2" />
+              Pending Verifications
             </Button>
             <Button
               variant="ghost"
@@ -37,7 +47,8 @@ export default function VerifierDashboard() {
               }`}
               onClick={() => setActiveSection("students")}
             >
-              <GraduationCap className="w-5 h-5 mr-2" /> Verified Students
+              <GraduationCap className="w-5 h-5 mr-2" />
+              Verified Students
             </Button>
             <Button
               variant="ghost"
@@ -46,7 +57,8 @@ export default function VerifierDashboard() {
               }`}
               onClick={() => setActiveSection("flags")}
             >
-              <Flag className="w-5 h-5 mr-2" /> Flagged Accounts
+              <Flag className="w-5 h-5 mr-2" />
+              Flagged Accounts
             </Button>
             <Button
               variant="ghost"
@@ -55,7 +67,8 @@ export default function VerifierDashboard() {
               }`}
               onClick={() => setActiveSection("notifications")}
             >
-              <Bell className="w-5 h-5 mr-2" /> Notifications
+              <Bell className="w-5 h-5 mr-2" />
+              Notifications
             </Button>
             <Button
               variant="ghost"
@@ -64,13 +77,19 @@ export default function VerifierDashboard() {
               }`}
               onClick={() => setActiveSection("chat")}
             >
-              <MessageSquare className="w-5 h-5 mr-2" /> Admin Chat
+              <MessageSquare className="w-5 h-5 mr-2" />
+              Admin Chat
             </Button>
           </nav>
         </div>
+
         <div className="p-4">
-          <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
-            <LogOut className="w-5 h-5 mr-2" /> Logout
+          <Button
+            onClick={handleLogout}
+            className="w-full bg-red-600 hover:bg-red-700 text-white"
+          >
+            <LogOut className="w-5 h-5 mr-2" />
+            Logout
           </Button>
         </div>
       </aside>

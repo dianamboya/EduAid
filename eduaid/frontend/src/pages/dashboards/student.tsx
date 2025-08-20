@@ -10,9 +10,17 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentDashboard() {
   const [activeSection, setActiveSection] = useState("profile");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear any authentication tokens or session data here if needed
+    localStorage.removeItem("token"); // Example if you use JWT
+    navigate("/"); // Redirect to home page
+  };
 
   return (
     <div className="flex min-h-screen bg-blue-50 text-gray-900">
@@ -78,7 +86,10 @@ export default function StudentDashboard() {
           </nav>
         </div>
         <div className="p-4">
-          <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+          <Button
+            className="w-full bg-red-600 hover:bg-red-700 text-white"
+            onClick={handleLogout}
+          >
             <LogOut className="w-5 h-5 mr-2" /> Logout
           </Button>
         </div>
@@ -93,12 +104,23 @@ export default function StudentDashboard() {
             <Card className="p-6 shadow-md">
               <CardContent className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <p><span className="font-semibold">Name:</span> John Doe</p>
-                  <p><span className="font-semibold">Institution:</span> University of Nairobi</p>
-                  <p><span className="font-semibold">Course:</span> Computer Science</p>
+                  <p>
+                    <span className="font-semibold">Name:</span> John Doe
+                  </p>
+                  <p>
+                    <span className="font-semibold">Institution:</span>{" "}
+                    University of Nairobi
+                  </p>
+                  <p>
+                    <span className="font-semibold">Course:</span> Computer
+                    Science
+                  </p>
                 </div>
                 <div>
-                  <p><span className="font-semibold">Funding Status:</span> 65% Sponsored</p>
+                  <p>
+                    <span className="font-semibold">Funding Status:</span> 65%
+                    Sponsored
+                  </p>
                   <Button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white">
                     Edit Profile
                   </Button>
@@ -200,7 +222,8 @@ export default function StudentDashboard() {
             <h1 className="text-3xl font-bold mb-6">AI Chatbot</h1>
             <Card className="p-6 shadow-md">
               <p className="mb-4">
-                Ask questions about your sponsorship, funding process, or system usage.
+                Ask questions about your sponsorship, funding process, or system
+                usage.
               </p>
               <Button className="bg-blue-600 hover:bg-blue-700 text-white">
                 Start Chat

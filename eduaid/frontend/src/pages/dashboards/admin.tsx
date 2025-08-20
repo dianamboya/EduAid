@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Users, GraduationCap, Globe, ShieldCheck, Settings, FileBarChart, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // ✅ Added for navigation
+import {
+  Users,
+  GraduationCap,
+  Globe,
+  ShieldCheck,
+  Settings,
+  FileBarChart,
+  LogOut,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
@@ -13,6 +22,14 @@ const data = [
 
 export default function AdminDashboard() {
   const [activeSection, setActiveSection] = useState("overview");
+  const navigate = useNavigate(); // ✅ Hook for redirect
+
+  // ✅ Logout function
+  const handleLogout = () => {
+    // If you’re storing auth tokens, clear them here
+    // localStorage.removeItem("token");
+    navigate("/"); // Redirect to home page
+  };
 
   return (
     <div className="flex min-h-screen bg-blue-50 text-gray-900">
@@ -23,42 +40,54 @@ export default function AdminDashboard() {
           <nav className="flex flex-col gap-4 px-4">
             <Button
               variant="ghost"
-              className={`justify-start text-white hover:bg-blue-700 ${activeSection === "overview" && "bg-blue-700"}`}
+              className={`justify-start text-white hover:bg-blue-700 ${
+                activeSection === "overview" && "bg-blue-700"
+              }`}
               onClick={() => setActiveSection("overview")}
             >
               <FileBarChart className="w-5 h-5 mr-2" /> Overview
             </Button>
             <Button
               variant="ghost"
-              className={`justify-start text-white hover:bg-blue-700 ${activeSection === "students" && "bg-blue-700"}`}
+              className={`justify-start text-white hover:bg-blue-700 ${
+                activeSection === "students" && "bg-blue-700"
+              }`}
               onClick={() => setActiveSection("students")}
             >
               <GraduationCap className="w-5 h-5 mr-2" /> Students
             </Button>
             <Button
               variant="ghost"
-              className={`justify-start text-white hover:bg-blue-700 ${activeSection === "sponsors" && "bg-blue-700"}`}
+              className={`justify-start text-white hover:bg-blue-700 ${
+                activeSection === "sponsors" && "bg-blue-700"
+              }`}
               onClick={() => setActiveSection("sponsors")}
             >
               <Users className="w-5 h-5 mr-2" /> Sponsors
             </Button>
             <Button
               variant="ghost"
-              className={`justify-start text-white hover:bg-blue-700 ${activeSection === "verification" && "bg-blue-700"}`}
+              className={`justify-start text-white hover:bg-blue-700 ${
+                activeSection === "verification" && "bg-blue-700"
+              }`}
               onClick={() => setActiveSection("verification")}
             >
               <ShieldCheck className="w-5 h-5 mr-2" /> Verification
             </Button>
             <Button
               variant="ghost"
-              className={`justify-start text-white hover:bg-blue-700 ${activeSection === "reports" && "bg-blue-700"}`}
+              className={`justify-start text-white hover:bg-blue-700 ${
+                activeSection === "reports" && "bg-blue-700"
+              }`}
               onClick={() => setActiveSection("reports")}
             >
               <Globe className="w-5 h-5 mr-2" /> Reports
             </Button>
             <Button
               variant="ghost"
-              className={`justify-start text-white hover:bg-blue-700 ${activeSection === "settings" && "bg-blue-700"}`}
+              className={`justify-start text-white hover:bg-blue-700 ${
+                activeSection === "settings" && "bg-blue-700"
+              }`}
               onClick={() => setActiveSection("settings")}
             >
               <Settings className="w-5 h-5 mr-2" /> Settings
@@ -66,7 +95,10 @@ export default function AdminDashboard() {
           </nav>
         </div>
         <div className="p-4">
-          <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+          <Button
+            onClick={handleLogout} // ✅ Added action
+            className="w-full bg-red-600 hover:bg-red-700 text-white"
+          >
             <LogOut className="w-5 h-5 mr-2" /> Logout
           </Button>
         </div>
@@ -142,7 +174,9 @@ export default function AdminDashboard() {
                   <td className="p-3">Computer Science</td>
                   <td className="p-3">Verified</td>
                   <td className="p-3">
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">Edit</Button>
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      Edit
+                    </Button>
                   </td>
                 </tr>
               </tbody>
@@ -169,7 +203,9 @@ export default function AdminDashboard() {
                   <td className="p-3">jane@example.com</td>
                   <td className="p-3">$5,000</td>
                   <td className="p-3">
-                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">View</Button>
+                    <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                      View
+                    </Button>
                   </td>
                 </tr>
               </tbody>
@@ -206,7 +242,9 @@ export default function AdminDashboard() {
             <h1 className="text-3xl font-bold mb-6">System Settings</h1>
             <Card className="bg-white shadow-md p-6">
               <p>Admin can configure system preferences here.</p>
-              <Button className="mt-4 bg-blue-600 hover:bg-blue-700">Save Changes</Button>
+              <Button className="mt-4 bg-blue-600 hover:bg-blue-700">
+                Save Changes
+              </Button>
             </Card>
           </div>
         )}

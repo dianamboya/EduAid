@@ -8,11 +8,21 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // ✅ Import navigation
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export default function SponsorDashboard() {
   const [activeSection, setActiveSection] = useState("students");
+  const navigate = useNavigate(); // ✅ Hook for navigation
+
+  const handleLogout = () => {
+    // Clear authentication/session (example: token)
+    localStorage.removeItem("authToken");
+
+    // Redirect to homepage
+    navigate("/");
+  };
 
   return (
     <div className="flex min-h-screen bg-blue-50 text-gray-900">
@@ -69,7 +79,10 @@ export default function SponsorDashboard() {
           </nav>
         </div>
         <div className="p-4">
-          <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
+          <Button
+            onClick={handleLogout} // ✅ Now functional
+            className="w-full bg-red-600 hover:bg-red-700 text-white"
+          >
             <LogOut className="w-5 h-5 mr-2" /> Logout
           </Button>
         </div>
@@ -85,12 +98,16 @@ export default function SponsorDashboard() {
               <Card className="p-6 shadow-md">
                 <h3 className="font-semibold">John Doe</h3>
                 <p className="text-gray-500">Computer Science - 65% funded</p>
-                <Button className="mt-4 bg-blue-600 hover:bg-blue-700">Sponsor</Button>
+                <Button className="mt-4 bg-blue-600 hover:bg-blue-700">
+                  Sponsor
+                </Button>
               </Card>
               <Card className="p-6 shadow-md">
                 <h3 className="font-semibold">Jane Smith</h3>
                 <p className="text-gray-500">Medicine - 40% funded</p>
-                <Button className="mt-4 bg-blue-600 hover:bg-blue-700">Sponsor</Button>
+                <Button className="mt-4 bg-blue-600 hover:bg-blue-700">
+                  Sponsor
+                </Button>
               </Card>
             </div>
           </div>
@@ -114,10 +131,16 @@ export default function SponsorDashboard() {
           <div>
             <h1 className="text-3xl font-bold mb-6">Student Updates</h1>
             <Card className="p-6 shadow-md">
-              <p><strong>John Doe:</strong> "Thank you for the support! I passed my semester exams."</p>
+              <p>
+                <strong>John Doe:</strong> "Thank you for the support! I passed
+                my semester exams."
+              </p>
             </Card>
             <Card className="p-6 shadow-md mt-4">
-              <p><strong>Jane Smith:</strong> "Your funding helped me buy essential medical books."</p>
+              <p>
+                <strong>Jane Smith:</strong> "Your funding helped me buy
+                essential medical books."
+              </p>
             </Card>
           </div>
         )}
@@ -141,7 +164,9 @@ export default function SponsorDashboard() {
             <h1 className="text-3xl font-bold mb-6">Account Settings</h1>
             <Card className="p-6 shadow-md">
               <p>Update payment methods, profile details, or preferences.</p>
-              <Button className="mt-4 bg-blue-600 hover:bg-blue-700">Save Changes</Button>
+              <Button className="mt-4 bg-blue-600 hover:bg-blue-700">
+                Save Changes
+              </Button>
             </Card>
           </div>
         )}
