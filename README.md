@@ -142,7 +142,7 @@ EduAid solves these problems by:
 ## 📬 Contact
 
 For partnership, collaboration, or sponsorship:
-**Email:** [johnjedidah0@gmail.com, dianamboya16@gmail.com]  
+**Email:** [sherifsolo9113@gmail.com, dianamboya16@gmail.com]  
 **Twitter:** [@EduAidAfrica]  
 **WhatsApp:** []  
 **Website:** Coming Soon  
