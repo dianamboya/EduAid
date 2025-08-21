@@ -1,44 +1,104 @@
 // src/contexts/AuthContext.tsx
-import { createContext, useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-type User = {
+type Role = "student" | "sponsor" | "verifier" | "admin";
+
+interface User {
   name: string;
   email: string;
-  role: 'student' | 'sponsor' | 'verifier' | 'admin';
-};
+  role: Role;
+  password: string;
+  createdAt: number;
+  lastLogin: number;
+}
 
-type AuthContextType = {
-  user: User | null;
+interface SafeUser extends Omit<User, "password"> {}
+
+interface AuthContextType {
+  user: SafeUser | null;
   login: (email: string, password: string) => void;
-  register: (user: User, password: string) => void;
-};
+  register: (data: Omit<User, "password" | "createdAt" | "lastLogin">, password: string) => void;
+  logout: () => void;
+}
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+// ✅ define hook at top level
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  return context;
+}
+
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<SafeUser | null>(null);
   const navigate = useNavigate();
 
-  const login = (email: string, password: string) => {
-    const storedUser = JSON.parse(localStorage.getItem(email) || '{}');
-    if (storedUser?.email === email) {
-      setUser(storedUser);
-      navigate(`/dashboard/${storedUser.role}`);
+  useEffect(() => {
+    const stored = localStorage.getItem("eduaid-current-user");
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
+
+  const roleRedirect = (role: Role) => {
+    switch (role) {
+      case "student": navigate("/dashboard/student"); break;
+      case "sponsor": navigate("/dashboard/sponsor"); break;
+      case "verifier": navigate("/dashboard/verifier"); break;
+      case "admin": navigate("/dashboard/admin"); break;
+      default: navigate("/");
     }
   };
 
-  const register = (newUser: User, password: string) => {
-    localStorage.setItem(newUser.email, JSON.stringify(newUser));
-    setUser(newUser);
-    navigate(`/dashboard/${newUser.role}`);
+  const register = (
+    data: Omit<User, "password" | "createdAt" | "lastLogin">,
+    password: string
+  ) => {
+    const allUsers: User[] = JSON.parse(localStorage.getItem("eduaid-users") || "[]");
+    const now = Date.now();
+
+    const newUser: User = { ...data, password, createdAt: now, lastLogin: now };
+    allUsers.push(newUser);
+
+    localStorage.setItem("eduaid-users", JSON.stringify(allUsers));
+
+    const safeUser: SafeUser = { ...newUser };
+    delete (safeUser as any).password;
+    localStorage.setItem("eduaid-current-user", JSON.stringify(safeUser));
+    setUser(safeUser);
+
+    roleRedirect(newUser.role);
+  };
+
+  const login = (email: string, password: string) => {
+    const allUsers: User[] = JSON.parse(localStorage.getItem("eduaid-users") || "[]");
+    const found = allUsers.find((u) => u.email === email && u.password === password);
+
+    if (found) {
+      const updated: User = { ...found, lastLogin: Date.now() };
+      const updatedUsers = allUsers.map((u) => (u.email === email ? updated : u));
+      localStorage.setItem("eduaid-users", JSON.stringify(updatedUsers));
+
+      const safeUser: SafeUser = { ...updated };
+      delete (safeUser as any).password;
+      setUser(safeUser);
+      localStorage.setItem("eduaid-current-user", JSON.stringify(safeUser));
+
+      roleRedirect(updated.role);
+    } else {
+      alert("Invalid credentials");
+    }
+  };
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("eduaid-current-user");
+    navigate("/");
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register }}>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext)!;

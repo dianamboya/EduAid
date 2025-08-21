@@ -1,0 +1,44 @@
+type Update = 
+ record {
+   content: text;
+   createdAt: int;
+ };
+type Request = 
+ record {
+   createdAt: int;
+   description: text;
+   id: nat;
+   status: text;
+ };
+type Profile = 
+ record {
+   course: text;
+   createdAt: int;
+   fundingStatus: text;
+   institution: text;
+   name: text;
+   updatedAt: int;
+ };
+type Notification = 
+ record {
+   createdAt: int;
+   message: text;
+ };
+type Donation = 
+ record {
+   amount: nat;
+   date: int;
+   donor: text;
+ };
+service : {
+  addDonation: (text, nat) -> (Donation);
+  addNotification: (text) -> (Notification);
+  createRequest: (text) -> (Request);
+  getDonations: () -> (vec Donation);
+  getNotifications: () -> (vec Notification);
+  getProfile: () -> (opt Profile);
+  getRequests: () -> (vec Request);
+  getUpdates: () -> (vec Update);
+  postUpdate: (text) -> (Update);
+  saveProfile: (text, text, text, text) -> (Profile);
+}

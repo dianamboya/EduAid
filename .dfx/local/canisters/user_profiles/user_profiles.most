@@ -1,0 +1,16 @@
+// Version: 1.0.0
+type Profile =
+  {
+    country : ?Text;
+    createdAt : Timestamp;
+    email : ?Text;
+    lastLogin : Timestamp;
+    phone : ?Text;
+    roles : [Text];
+    username : Text
+  };
+type Timestamp = Nat64;
+actor {
+  stable var _admins : [Principal];
+  stable var _profiles_kv : [(Principal, Profile)]
+};

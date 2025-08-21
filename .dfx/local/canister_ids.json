@@ -1,0 +1,20 @@
+{
+  "__Candid_UI": {
+    "local": "cuj6u-c4aaa-aaaaa-qaajq-cai"
+  },
+  "donation_processor": {
+    "local": "ahw5u-keaaa-aaaaa-qaaha-cai"
+  },
+  "frontend": {
+    "local": "aax3a-h4aaa-aaaaa-qaahq-cai"
+  },
+  "rwa_registry": {
+    "local": "c5kvi-uuaaa-aaaaa-qaaia-cai"
+  },
+  "student_backend": {
+    "local": "ctiya-peaaa-aaaaa-qaaja-cai"
+  },
+  "user_profiles": {
+    "local": "c2lt4-zmaaa-aaaaa-qaaiq-cai"
+  }
+}

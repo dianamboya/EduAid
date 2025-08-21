@@ -1,0 +1,21 @@
+// Version: 1.0.0
+type Donation = {amount : Nat; date : Int; donor : Text};
+type Notification = {createdAt : Int; message : Text};
+type Profile =
+  {
+    course : Text;
+    createdAt : Int;
+    fundingStatus : Text;
+    institution : Text;
+    name : Text;
+    updatedAt : Int
+  };
+type Request = {createdAt : Int; description : Text; id : Nat; status : Text};
+type Update = {content : Text; createdAt : Int};
+actor {
+  stable var donations : [Donation];
+  stable var notifications : [Notification];
+  stable var profile : ?Profile;
+  stable var requests : [Request];
+  stable var updates : [Update]
+};

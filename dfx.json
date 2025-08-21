@@ -6,32 +6,38 @@
     },
     "user_profiles": {
       "type": "motoko",
-      "main": "src/user_profiles/main.mo"
+      "main": "eduaid/backend/user_profiles/main.mo"
     },
     "rwa_registry": {
       "type": "motoko",
-      "main": "src/rwa_registry/main.mo"
+      "main": "eduaid/backend/rwa_registry/main.mo"
     },
     "donation_processor": {
       "type": "motoko",
-      "main": "src/donation_processor/main.mo"
+      "main": "eduaid/backend/donation_processor/main.mo"
+    },
+    "student_backend": {
+      "type": "motoko",
+      "main": "eduaid/backend/student_backend/student_backend.mo"
     },
     "frontend": {
       "dependencies": [
         "user_profiles",
         "rwa_registry",
-        "donation_processor"
+        "donation_processor",
+        "student_backend"
       ],
       "type": "assets",
       "source": ["src/frontend/dist/"]
     }
   },
   "defaults": {
-    "build": {
-      "args": "",
-      "packtool": "mops sources"
-    }
-  },
+  "build": {
+    "args": "",
+    "packtool": "mops sources"
+  }
+},
+
   "output_env_file": ".env",
   "version": 1,
   "dfx": "0.25.0"
