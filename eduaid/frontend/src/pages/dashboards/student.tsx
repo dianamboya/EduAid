@@ -200,11 +200,15 @@ export default function StudentDashboard() {
                   Ask questions about your sponsorship, funding process, or system usage.
                 </p>
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Start Chat
+                <a href="/chatbot" >
+            Try the Chatbot
+                </a>
                 </Button>
               </CardContent>
             </Card>
           </div>
+
+        
         )}
       </main>
     </div>

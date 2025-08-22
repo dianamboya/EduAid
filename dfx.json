@@ -20,24 +20,33 @@
       "type": "motoko",
       "main": "eduaid/backend/student_backend/student_backend.mo"
     },
+    "eduaid_chat": {
+      "type": "motoko",
+      "main": "eduaid/backend/eduaid_chat/main.mo",
+      "metadata": [
+        { "name": "candid:service" }
+      ]
+    },
     "frontend": {
       "dependencies": [
         "user_profiles",
         "rwa_registry",
         "donation_processor",
-        "student_backend"
+        "student_backend",
+        "eduaid_chat"
       ],
       "type": "assets",
-      "source": ["src/frontend/dist/"]
+      "source": [
+        "src/frontend/dist/"
+      ]
     }
   },
   "defaults": {
-  "build": {
-    "args": "",
-    "packtool": "mops sources"
-  }
-},
-
+    "build": {
+      "args": "",
+      "packtool": "mops sources"
+    }
+  },
   "output_env_file": ".env",
   "version": 1,
   "dfx": "0.25.0"

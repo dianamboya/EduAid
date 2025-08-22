@@ -49,6 +49,7 @@ import StudentDashboard from "./pages/dashboards/student";
 import SponsorDashboard from "./pages/dashboards/sponsor";
 import VerifierDashboard from "./pages/dashboards/verifier";
 import AdminDashboard from "./pages/dashboards/admin";
+import Chatbot from "./components/Chatbot";
 
 function ProtectedRoute({ children }: { children: JSX.Element }) {
   const { user } = useAuth();
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/chatbot" element={<Chatbot />} />
 
           {/* Dashboards */}
           <Route

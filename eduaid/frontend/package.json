@@ -13,6 +13,7 @@
   "dependencies": {
     "@dfinity/agent": "^3.1.0",
     "@dfinity/auth-client": "^3.1.0",
+    "@dfinity/candid": "^3.2.2",
     "@dfinity/identity": "^3.1.0",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",

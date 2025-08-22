@@ -103,9 +103,10 @@ export default function Home() {
           <div>
             <h2 className="text-2xl font-bold mb-4">AI Chatbot Assistant</h2>
             <p className="mb-4">Available in Swahili & English — guiding students, sponsors, and admins via web or WhatsApp.</p>
-            <Button className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700">
+            {/* Ensure this links to /chatbot */}
+            <Link to="/chatbot" className="inline-block px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white">
               Try the Chatbot
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

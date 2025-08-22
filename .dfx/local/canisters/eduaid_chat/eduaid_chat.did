@@ -1,0 +1,19 @@
+type Reply = 
+ record {
+   reply: text;
+   suggestions: vec text;
+ };
+type Message = 
+ record {
+   at: nat64;
+   sender: variant {
+             bot;
+             user;
+           };
+   "text": text;
+ };
+service : {
+  history: (nat) -> (vec Message) query;
+  ping: () -> (text) query;
+  sendWebMessage: (text) -> (Reply);
+}
