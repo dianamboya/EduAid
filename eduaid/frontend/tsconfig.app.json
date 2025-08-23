@@ -21,7 +21,14 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Added for EduAid web */
+    "resolveJsonModule": true,
+    "types": ["vite/client"]
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "src/types/**/*.d.ts"
+  ]
 }

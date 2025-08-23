@@ -1,0 +1,100 @@
+type TokenId = nat;
+type Result_3 = 
+ variant {
+   err: Error;
+   ok: TokenId;
+ };
+type Result_2 = 
+ variant {
+   err: Error;
+   ok: NeedId;
+ };
+type Result_1 = 
+ variant {
+   err: Error;
+   ok:
+    record {
+      accepted_e8s: nat;
+      contributionId: ContributionId;
+      remaining_e8s: nat;
+    };
+ };
+type Result = 
+ variant {
+   err: Error;
+   ok;
+ };
+type NeedStatus = 
+ variant {
+   Cancelled;
+   Closed;
+   Funded;
+   Open;
+   Proposed;
+ };
+type NeedId = nat;
+type Need = 
+ record {
+   category: text;
+   createdAt: nat64;
+   description: text;
+   funded_e8s: nat;
+   id: NeedId;
+   proofs: vec text;
+   status: NeedStatus;
+   student: principal;
+   subaccount: vec nat8;
+   tags: vec text;
+   target_e8s: nat;
+   title: text;
+   token: opt TokenId;
+   updatedAt: nat64;
+ };
+type Error = 
+ variant {
+   AlreadyExists;
+   BadInput: text;
+   InvalidState: text;
+   NotAuthorized;
+   NotFound;
+   NotVerified;
+ };
+type ContributionId = nat;
+type Contribution = 
+ record {
+   amount_e8s: nat;
+   createdAt: nat64;
+   donor: principal;
+   id: ContributionId;
+   needId: NeedId;
+ };
+service : {
+  add_admin: (principal) -> (Result);
+  add_sponsor: (principal) -> (Result);
+  add_student: (principal) -> (Result);
+  add_verifier: (principal) -> (Result);
+  approve_need: (NeedId, opt text) -> (Result_3);
+  cancel_need: (NeedId) -> (Result);
+  close_need: (NeedId) -> (Result);
+  get_need: (NeedId) -> (opt Need) query;
+  is_admin: (principal) -> (bool) query;
+  is_sponsor: (principal) -> (bool) query;
+  is_student_role: (principal) -> (bool) query;
+  is_student_verified: (principal) -> (bool) query;
+  is_verifier_role: (principal) -> (bool) query;
+  list_contributions: (NeedId) -> (vec Contribution) query;
+  list_needs: (nat, nat) -> (vec Need) query;
+  list_needs_by_student: (principal) -> (vec Need) query;
+  need_subaccount: (NeedId) -> (vec nat8) query;
+  propose_need: (text, text, text, nat, vec text, vec text) -> (Result_2);
+  record_deposit: (NeedId, principal, nat) -> (Result_1);
+  register_sponsor: () -> ();
+  register_student: () -> ();
+  remove_admin: (principal) -> (Result);
+  remove_sponsor: (principal) -> (Result);
+  remove_student: (principal) -> (Result);
+  remove_verifier: (principal) -> (Result);
+  token_of_need: (NeedId) -> (opt TokenId) query;
+  token_owner: (TokenId) -> (opt principal) query;
+  verify_student: (principal) -> (Result);
+}

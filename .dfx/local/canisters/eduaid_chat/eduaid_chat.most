@@ -1,5 +1,5 @@
 // Version: 1.0.0
 type Message = {at : Nat64; sender : {#bot; #user}; text : Text};
 actor {
-  stable var stableChats : [(Principal, [Message])]
+  stable var s_chats : [(Principal, [Message])]
 };

@@ -1,0 +1,60 @@
+// Version: 1.0.0
+type Contribution =
+  {
+    amount_e8s : Nat;
+    createdAt : Nat64;
+    donor : Principal;
+    id : ContributionId;
+    needId : NeedId
+  };
+type ContributionId = Nat;
+type Event =
+  {
+    #Donation : {amount_e8s : Nat; donor : Principal; need : NeedId};
+    #NeedCancelled : {need : NeedId};
+    #NeedClosed : {need : NeedId};
+    #NeedFunded : {need : NeedId};
+    #NeedOpened : {need : NeedId};
+    #NeedProposed : {need : NeedId; student : Principal};
+    #TokenMinted : {need : NeedId; owner : Principal; token : TokenId}
+  };
+type Need =
+  {
+    category : Text;
+    createdAt : Nat64;
+    description : Text;
+    funded_e8s : Nat;
+    id : NeedId;
+    proofs : [Text];
+    status : NeedStatus;
+    student : Principal;
+    subaccount : [Nat8];
+    tags : [Text];
+    target_e8s : Nat;
+    title : Text;
+    token : ?TokenId;
+    updatedAt : Nat64
+  };
+type NeedId = Nat;
+type NeedStatus = {#Cancelled; #Closed; #Funded; #Open; #Proposed};
+type NeedToken =
+  {
+    id : TokenId;
+    metadataUri : ?Text;
+    mintedAt : Nat64;
+    needId : NeedId;
+    owner : Principal
+  };
+type TokenId = Nat;
+actor {
+  stable var s_admins : [(Principal, Bool)];
+  stable var s_contribs : [(ContributionId, Contribution)];
+  stable var s_events : [Event];
+  stable var s_needs : [(NeedId, Need)];
+  stable var s_next : (Nat, Nat, Nat);
+  stable var s_sponsorsRole : [(Principal, Bool)];
+  stable var s_studentsRole : [(Principal, Bool)];
+  stable var s_tokens : [(TokenId, NeedToken)];
+  stable var s_verifiedStudents : [(Principal, Bool)];
+  stable var s_verifiers : [(Principal, Bool)]
+};

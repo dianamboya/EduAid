@@ -4,21 +4,12 @@
       "type": "pull",
       "id": "w36hm-eqaaa-aaaal-qr76a-cai"
     },
-    "user_profiles": {
-      "type": "motoko",
-      "main": "eduaid/backend/user_profiles/main.mo"
-    },
     "rwa_registry": {
       "type": "motoko",
-      "main": "eduaid/backend/rwa_registry/main.mo"
-    },
-    "donation_processor": {
-      "type": "motoko",
-      "main": "eduaid/backend/donation_processor/main.mo"
-    },
-    "student_backend": {
-      "type": "motoko",
-      "main": "eduaid/backend/student_backend/student_backend.mo"
+      "main": "eduaid/backend/rwa_registry/main.mo",
+      "metadata": [
+        { "name": "candid:service" }
+      ]
     },
     "eduaid_chat": {
       "type": "motoko",
@@ -28,16 +19,13 @@
       ]
     },
     "frontend": {
-      "dependencies": [
-        "user_profiles",
-        "rwa_registry",
-        "donation_processor",
-        "student_backend",
-        "eduaid_chat"
-      ],
       "type": "assets",
+      "dependencies": [
+        "eduaid_chat",
+        "rwa_registry"
+      ],
       "source": [
-        "src/frontend/dist/"
+        "frontend/dist/"
       ]
     }
   },

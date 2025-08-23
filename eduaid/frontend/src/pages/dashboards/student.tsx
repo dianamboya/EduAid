@@ -1,3 +1,5 @@
+import StudentRequests from "@/components/StudentRequests";
+import StudentProfile from "@/components/StudentProfile";
 import { useState } from "react";
 import {
   User,
@@ -64,73 +66,13 @@ export default function StudentDashboard() {
 
       {/* Main Content */}
       <main className="flex-1 p-8">
-        {/* Profile Section */}
-        {activeSection === "profile" && (
-          <div>
-            <h1 className="text-3xl font-bold mb-6">My Profile</h1>
-            <Card className="shadow-md">
-              <CardContent className="p-6 grid md:grid-cols-2 gap-6">
-                <div>
-                  <p>
-                    <span className="font-semibold">Name:</span> Student
-                  </p>
-                  <p>
-                    <span className="font-semibold">Institution:</span> University of Nairobi
-                  </p>
-                  <p>
-                    <span className="font-semibold">Course:</span> Computer Science
-                  </p>
-                </div>
-                <div>
-                  <p>
-                    <span className="font-semibold">Funding Status:</span> 65% Sponsored
-                  </p>
-                  <Button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white">
-                    Edit Profile
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        
 
-        {/* Funding Requests Section */}
-        {activeSection === "requests" && (
-          <div>
-            <h1 className="text-3xl font-bold mb-6">My Funding Requests</h1>
-            <Card className="shadow-md mb-6">
-              <CardContent className="p-6">
-                <h2 className="text-lg font-semibold mb-4">Create New Request</h2>
-                <textarea
-                  placeholder="Enter request details..."
-                  className="w-full p-3 border rounded-lg mb-3"
-                />
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                  Submit Request
-                </Button>
-              </CardContent>
-            </Card>
-            <Card className="shadow-md">
-              <CardContent className="p-6">
-                <h2 className="text-lg font-semibold mb-4">Existing Requests</h2>
-                <ul className="space-y-3">
-                  <li className="flex justify-between items-center">
-                    <span>Semester 2 Tuition - Pending</span>
-                    <Button size="sm" className="bg-red-600 hover:bg-red-700">
-                      Cancel
-                    </Button>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span>Books & Materials - Funded</span>
-                    <Button size="sm" className="bg-green-600 hover:bg-green-700">
-                      View
-                    </Button>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        <StudentProfile active={activeSection === "profile"} />
+
+
+        {activeSection === "requests" && (<StudentRequests />)}
+
 
         {/* Donations Section */}
         {activeSection === "donations" && (
